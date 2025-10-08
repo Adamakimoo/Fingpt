@@ -9,8 +9,7 @@ from pandas import (
     datetime,
     concat
 )
-from pandas.util.testing import (assert_frame_equal,
-                                 assert_series_equal)
+from pandas.testing import assert_frame_equal, assert_series_equal
 
 from pyfolio.capacity import (days_to_liquidate_positions,
                               get_max_days_to_liquidate_by_ticker,
