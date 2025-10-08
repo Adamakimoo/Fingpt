@@ -364,7 +364,7 @@ class DataCollatorRLHF:
                                    padding_value=0,
                                    batch_first=True)
 
-        ### make sure the final ouput is a seqence of 2**?
+        ### make sure the final output is a sequence of 2**?
         length = prompt.size()[-1]
         pad_length = self.max_token_len - length
         if pad_length > 0:
