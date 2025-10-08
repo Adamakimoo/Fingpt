@@ -4,7 +4,7 @@ Welcome to the FinGPT project! We are thrilled to have you here 🌟. Your contr
 
 ## Code of Conduct 🤝
 
-Before diving in, please take a moment to review our Code of Conduct. It sets the tone for our community and emphasizes the importance of respect and inclusivity. [Read the Code of Conduct](LICENSE.md).
+Before diving in, please take a moment to review our Code of Conduct. It sets the tone for our community and emphasizes the importance of respect and inclusivity. [Read the Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Contribution Types 🦠🚀📚
 
