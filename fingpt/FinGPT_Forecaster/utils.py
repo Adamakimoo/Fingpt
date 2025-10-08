@@ -96,8 +96,8 @@ def parse_answer(answer):
             
     match_res = re.search(r'(\d)-(\d)%', pred)
     if not match_res:
-        match_res = re.search(r'(?:more than )?(\d)+?%', pred)    
-        
+        match_res = re.search(r'(?:more than )?(\d+)%', pred)
+
     pred_margin = pred_bin * (int(match_res.group(1)) + 0.5) if match_res else 0.
         
     return {
