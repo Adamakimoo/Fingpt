@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=600, initial-scale=1.0">
+  <title>YouTube Markdown</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header id="header">
+      <div class="header-left">
+        <h1>YT Markdown</h1>
+        <span id="stats-badge" class="badge">0 videos</span>
+      </div>
+      <div class="header-right">
+        <button id="btn-settings" class="icon-btn" title="Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav id="tabs">
+      <button class="tab active" data-tab="current">Current</button>
+      <button class="tab" data-tab="library">Library</button>
+      <button class="tab" data-tab="playlists">Playlists</button>
+      <button class="tab" data-tab="export">Export</button>
+    </nav>
+
+    <!-- Tab Content -->
+    <main id="content">
+      <!-- Current Video Tab -->
+      <section id="tab-current" class="tab-panel active">
+        <div id="current-video-info" class="card">
+          <div id="current-no-video" class="empty-state">
+            <p>Navigate to a YouTube video to see it here.</p>
+          </div>
+          <div id="current-video-details" class="hidden">
+            <img id="current-thumbnail" class="video-thumbnail" alt="Video thumbnail">
+            <div class="video-meta">
+              <h3 id="current-title"></h3>
+              <p id="current-channel" class="channel-name"></p>
+              <p id="current-duration" class="duration"></p>
+            </div>
+            <div class="action-buttons">
+              <button id="btn-save-current" class="btn btn-primary">Save Video</button>
+              <button id="btn-transcribe-current" class="btn btn-secondary">Transcribe</button>
+              <button id="btn-summarize-current" class="btn btn-accent">AI Summary</button>
+            </div>
+            <div id="current-transcript-preview" class="transcript-preview hidden">
+              <h4>Transcript Preview</h4>
+              <div id="current-transcript-text" class="transcript-text"></div>
+            </div>
+            <div id="current-summary-preview" class="summary-preview hidden">
+              <h4>AI Summary</h4>
+              <div id="current-summary-text" class="summary-text"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Library Tab -->
+      <section id="tab-library" class="tab-panel hidden">
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Search videos by title, channel, or tag...">
+          <div id="tag-filters" class="tag-filters"></div>
+        </div>
+        <div id="library-list" class="video-list">
+          <div class="empty-state">
+            <p>No saved videos yet. Save a video from the Current tab.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Playlists Tab -->
+      <section id="tab-playlists" class="tab-panel hidden">
+        <div id="playlists-list" class="playlist-list">
+          <div class="empty-state">
+            <p>No saved playlists. Visit a YouTube playlist to save it.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Export Tab -->
+      <section id="tab-export" class="tab-panel hidden">
+        <div class="export-panel">
+          <div class="form-group">
+            <label for="export-video-select">Select Video</label>
+            <select id="export-video-select">
+              <option value="">-- Choose a video --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="export-template-select">Template</label>
+            <select id="export-template-select">
+              <option value="video-note">Video Note</option>
+              <option value="skill-file">Skills File</option>
+              <option value="study-notes">Study Notes</option>
+              <option value="blog-draft">Blog Draft</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="ai-generate-group">
+            <label>AI Content (optional)</label>
+            <div class="btn-row">
+              <button id="btn-gen-summary" class="btn btn-sm">Summary</button>
+              <button id="btn-gen-study" class="btn btn-sm">Study Notes</button>
+              <button id="btn-gen-skills" class="btn btn-sm">Skills File</button>
+              <button id="btn-gen-blog" class="btn btn-sm">Blog Draft</button>
+            </div>
+          </div>
+
+          <div id="export-preview" class="markdown-preview hidden">
+            <h4>Preview</h4>
+            <pre id="export-preview-text"></pre>
+          </div>
+
+          <div class="export-destinations">
+            <h4>Export To</h4>
+            <div class="btn-row">
+              <button id="btn-export-clipboard" class="btn btn-export">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Clipboard
+              </button>
+              <button id="btn-export-download" class="btn btn-export">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download
+              </button>
+              <button id="btn-export-obsidian" class="btn btn-export">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Obsidian
+              </button>
+              <button id="btn-export-drive" class="btn btn-export">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 19.5h20L12 2z"/></svg>
+                Drive
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+      <div class="spinner"></div>
+      <p id="loading-text">Loading...</p>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container"></div>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

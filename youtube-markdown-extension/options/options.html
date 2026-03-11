@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=800, initial-scale=1.0">
+  <title>YouTube Markdown Extension - Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>YouTube Markdown Extension</h1>
+      <p class="subtitle">Settings & Configuration</p>
+    </header>
+
+    <main>
+      <!-- AI Settings -->
+      <section class="settings-section">
+        <h2>AI Integration</h2>
+        <div class="form-group">
+          <label for="claude-api-key">Claude API Key</label>
+          <input type="password" id="claude-api-key" placeholder="sk-ant-...">
+          <p class="help-text">Get your API key from <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a></p>
+        </div>
+        <div class="form-group">
+          <label for="claude-model">Claude Model</label>
+          <select id="claude-model">
+            <option value="claude-sonnet-4-20250514">Claude Sonnet 4 (Recommended)</option>
+            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 (Faster)</option>
+            <option value="claude-opus-4-6">Claude Opus 4.6 (Most capable)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="auto-transcribe">
+            Auto-transcribe when saving a video
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="auto-summarize">
+            Auto-summarize after transcription (requires API key)
+          </label>
+        </div>
+      </section>
+
+      <!-- Export Settings -->
+      <section class="settings-section">
+        <h2>Export Defaults</h2>
+        <div class="form-group">
+          <label for="default-template">Default Export Template</label>
+          <select id="default-template">
+            <option value="video-note">Video Note</option>
+            <option value="skill-file">Skills File</option>
+            <option value="study-notes">Study Notes</option>
+            <option value="blog-draft">Blog Draft</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="obsidian-subfolder">Obsidian Subfolder</label>
+          <input type="text" id="obsidian-subfolder" placeholder="YouTube Notes" value="YouTube Notes">
+          <p class="help-text">Subfolder within your Obsidian vault for saved notes</p>
+        </div>
+        <div class="form-group">
+          <label for="drive-folder">Google Drive Folder</label>
+          <input type="text" id="drive-folder" placeholder="YouTube Notes" value="YouTube Notes">
+          <p class="help-text">Folder name in Google Drive for uploaded files</p>
+        </div>
+      </section>
+
+      <!-- Data Management -->
+      <section class="settings-section">
+        <h2>Data Management</h2>
+        <div class="btn-row">
+          <button id="btn-export-data" class="btn">Export All Data (JSON)</button>
+          <button id="btn-import-data" class="btn">Import Data</button>
+        </div>
+        <input type="file" id="import-file" accept=".json" class="hidden">
+        <div id="data-stats" class="stats-grid"></div>
+      </section>
+
+      <!-- Save button -->
+      <div class="save-bar">
+        <button id="btn-save-settings" class="btn btn-primary">Save Settings</button>
+        <span id="save-status" class="save-status"></span>
+      </div>
+    </main>
+  </div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>
