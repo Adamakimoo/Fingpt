@@ -1,0 +1,11 @@
+/node_modules
+/.next/
+/out/
+.DS_Store
+*.pem
+.env*
+*.tsbuildinfo
+dashboard.db
+dashboard.db-wal
+dashboard.db-shm
+backups/
