@@ -32,7 +32,7 @@ _REQUIRED_COLUMNS = [
 def run_pipeline(
     url: str,
     max_comments: int = 500,
-    dimensions: list[str] = ("political", "socioeconomic", "gender", "emotion"),
+    dimensions: list[str] = ["political", "socioeconomic", "gender", "emotion"],
     output_format: str = "markdown",
     prefer_api: bool = True,
     include_bias_audit: bool = True,

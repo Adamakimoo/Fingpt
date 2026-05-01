@@ -30,7 +30,7 @@ def encode_texts(texts: list[str], model_name: str = DEFAULT_MODEL) -> np.ndarra
 
 
 def compute_video_anchor(
-    transcript_text: "str | None",
+    transcript_text: str | None,
     title: str,
     description: str,
     model_name: str = DEFAULT_MODEL,
